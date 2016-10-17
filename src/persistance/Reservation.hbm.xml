@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 oct. 2016 16:32:48 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="persistance.Reservation" table="reservation" catalog="agence">
+        <id name="idreservation" type="int">
+            <column name="idreservation" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="client" class="persistance.Client" fetch="select">
+            <column name="idclient" />
+        </many-to-one>
+        <many-to-one name="hotel" class="persistance.Hotel" fetch="select">
+            <column name="idhotel" />
+        </many-to-one>
+        <property name="dateReservation" type="date">
+            <column name="date_reservation" length="0" />
+        </property>
+        <property name="nbrNuit" type="string">
+            <column name="nbr_nuit" />
+        </property>
+        <property name="typePenssion" type="string">
+            <column name="type_penssion" />
+        </property>
+    </class>
+</hibernate-mapping>

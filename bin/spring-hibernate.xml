@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+<bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    <property name="url" value="jdbc:mysql://localhost/agence"/>
+    <property name="username" value="root"/>
+    <property name="password" value=""/>
+</bean>
+<bean id="mySessionFactory" 
+class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <property name="dataSource" ref="myDataSource"/>
+    <property name="mappingResources">
+        <list>
+            <value>/persistance/Client.hbm.xml</value>
+             <value>/persistance/Hotel.hbm.xml</value>
+              <value>/persistance/Reservation.hbm.xml</value>
+        </list>
+    </property>
+    <property name="hibernateProperties">
+     <value>hibernate.dialect=org.hibernate.dialect.MySQLDialect</value>
+ 
+    </property>
+</bean>
+<bean id="hibernateTemplate" 
+class="org.springframework.orm.hibernate3.HibernateTemplate">
+    <property name="sessionFactory">
+        <ref bean="mySessionFactory"/>
+    </property>
+</bean>
+<bean id="clientDao" class="dao.ClientDao">
+    <property name="hibernateTemplate">
+        <ref bean="hibernateTemplate"/>    
+    </property>
+</bean>
+
+<bean id="idclient" class="persistance.Client">
+</bean>
+
+<!--<bean id="hotelDao" class="dao.HotelDao">
+    <property name="hibernateTemplate">
+        <ref bean="hibernateTemplate"/>    
+    </property>
+</bean>-->
+
+<!--  <bean id="reservationDao" class="dao.ReservationDao">
+    <property name="hibernateTemplate">
+        <ref bean="hibernateTemplate"/>    
+    </property>
+</bean>-->
+</beans>
